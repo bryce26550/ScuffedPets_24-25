@@ -26,5 +26,3 @@ io.use((socket, next) => { sessionMiddleware(socket.request, {}, next); });
 
 // Call the routes function and pass the app instance
 routes(app);
-// Call the socket function and pass the io instance
-socket(io);

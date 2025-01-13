@@ -58,7 +58,7 @@ app.post('/login', (req, res) => {
                         const hashedPassword = derivedKey.toString('hex');
                         if (row.password === hashedPassword) {
                             req.session.user = req.body.user;
-                            res.redirect('/chat');
+                            res.redirect('/scuffedPets');
 
                         } else {
                             res.send("Incorrect password.")
@@ -91,7 +91,7 @@ app.get('/formbar-login', (req, res) => {
             } else if (row) {
                 req.session.user = fb_name; // Ensure session is set
                 console.log("User found in FBusers, redirecting to chat");
-                res.redirect('/chat');
+                res.redirect('/scuffedPets');
             } else {
                 db.run(`INSERT INTO FBusers(fb_name, fb_id) VALUES(?, ?)`, [fb_name, fb_id], (err) => {
                     if (err) {
@@ -101,7 +101,7 @@ app.get('/formbar-login', (req, res) => {
                     } else {
                         req.session.user = fb_name; // Ensure session is set
                         console.log("User inserted into FBusers, redirecting to chat");
-                        res.redirect('/chat');
+                        res.redirect('/scuffedPets');
                     }
                 });
             }
@@ -114,18 +114,13 @@ app.get('/formbar-login', (req, res) => {
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
-            return res.redirect('/chat');
+            return res.redirect('/scuffedPets');
         }
         res.redirect('/');
     });
 });
+};
 
-app.get('/chat', (req, res) => {
-    isAuthenticated(req, res, () => {
-        console.log("Rendering chat.ejs for user:", req.session.user);
-        res.render('chat.ejs', { user: req.session.user }); // Pass user to chat.ejs
-    });
+app.get('/scuffedPets', isAuthenticated, (req, res) => {
+    res.render('scuffedPets.ejs');
 });
-}
-
-module.exports = { routes };
