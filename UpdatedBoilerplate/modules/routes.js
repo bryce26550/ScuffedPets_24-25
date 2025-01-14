@@ -124,3 +124,5 @@ app.get('/logout', (req, res) => {
 app.get('/scuffedPets', isAuthenticated, (req, res) => {
     res.render('scuffedPets.ejs');
 });
+
+exports.routes = routes;    
