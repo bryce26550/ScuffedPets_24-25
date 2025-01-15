@@ -90,7 +90,7 @@ function routes(app) {
                     res.send("There was an error:\n" + err)
                 } else if (row) {
                     req.session.user = fb_name; // Ensure session is set
-                    console.log("User found in FBusers, redirecting to chat");
+                    console.log("User found in FBusers, redirecting to scuffedPets");
                     res.redirect('/scuffedPets');
                 } else {
                     db.run(`INSERT INTO FBusers(fb_name, fb_id) VALUES(?, ?)`, [fb_name, fb_id], (err) => {
@@ -100,7 +100,7 @@ function routes(app) {
                             res.send("There was an error:\n" + err)
                         } else {
                             req.session.user = fb_name; // Ensure session is set
-                            console.log("User inserted into FBusers, redirecting to chat");
+                            console.log("User inserted into FBusers, redirecting to scuffedPets");
                             res.redirect('/scuffedPets');
                         }
                     });
@@ -114,7 +114,7 @@ function routes(app) {
     app.get('/logout', (req, res) => {
         req.session.destroy((err) => {
             if (err) {
-                return res.redirect('/chat');
+                return res.redirect('/scuffedPets');
             }
             res.redirect('/');
         });
@@ -133,7 +133,5 @@ function routes(app) {
         });
     });
 }
-
-
 
 module.exports = { routes };
