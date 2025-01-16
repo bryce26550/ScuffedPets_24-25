@@ -9,6 +9,7 @@ const bodyParser = require('body-parser'); // Import body-parser
 
 const app = express();
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 const PORT = 3000;
 const server = app.listen(PORT, () => {});
 const io = socketIo(server);

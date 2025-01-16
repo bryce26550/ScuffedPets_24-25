@@ -1,20 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Your pet, ButterDog!</title>
 </head>
 <style>
     body {
         background-color: green;
     }
-    button {
+    .buttering {
         border-radius: 15px;
-       font-size: 50px;
+        font-size: 50px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+    .butterDog {
+        display: block;
+        height: 65%; 
+        width: 35%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .button-container {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    .button-container .buttering {
+        margin: 10px;
     }
 </style>
 <body>
-    <button>Butter Dat DoG!</button>
+    <img src="img/butterDog.jpeg" alt="Butter Dog" class="butterDog">
+    <div class="button-container">
+        <button class="buttering">Butter Dat DoG!</button>
+        <button class="buttering">Play with Da Dog</button>
+        <button class="buttering">Leave (Map)</button>
+    </div>
 </body>
 </html>
