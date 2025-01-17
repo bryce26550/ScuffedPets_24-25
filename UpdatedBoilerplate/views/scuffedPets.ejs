@@ -7,6 +7,21 @@
     body {
         background-color: green;
     }
+
+    #butternessBox {
+        font-size: 30px;
+        color: yellow;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #happinessBox {
+        font-size: 30px;
+        color: white;
+        text-align: center;
+        margin-top: 20px;
+    }
+
     .buttering {
         border-radius: 15px;
         font-size: 50px;
@@ -15,29 +30,70 @@
         margin-right: auto;
         margin-top: 20px;
     }
+
     .butterDog {
         display: block;
-        height: 65%; 
+        height: 65%;
         width: 35%;
         margin-left: auto;
         margin-right: auto;
     }
+
     .button-container {
         position: absolute;
         bottom: 20px;
         width: 100%;
         text-align: center;
     }
+
     .button-container .buttering {
         margin: 10px;
     }
 </style>
+<script>
+    let butterness = 50;
+    let happiness = 50;
+    setInterval(unButter, 5000);
+    function unButter() {
+        if (butterness > 0) {
+            butterness -= 1;
+        }
+    };
+    setInterval(unHappy, 2000);
+    function unHappy() {
+        if (happiness > 0) {
+            happiness -= 1;
+        }
+    };
+    setInterval(checkStatus, 1);
+    function checkStatus() {
+        if (butterness <= 0) {
+            butterness = 0;
+        } else if (butterness > 100) {
+            butterness = 100;
+        }
+        if (happiness <= 0) {
+            happiness = 0;
+        } else if (happiness > 100) {
+            happiness = 100;
+        }
+        document.getElementById("butternessBox").innerHTML = "Butterness: " + butterness;
+        document.getElementById("happinessBox").innerHTML = "Happiness: " + happiness;
+        if (butterness <= 0 || happiness <= 0) {
+            alert("YOU MONSTER! YOU LET BUTTERDOG DIE!");
+        }
+    };
+</script>
+
 <body>
     <img src="img/butterDog.jpeg" alt="Butter Dog" class="butterDog">
+    <div id="butternessBox"></div>
+    <div id="happinessBox"></div>
     <div class="button-container">
-        <button class="buttering">Butter Dat DoG!</button>
-        <button class="buttering">Play with Da Dog</button>
+        <button class="buttering" onclick="butterness++">Butter Dat DoG!</button>
+        <button class="buttering" onclick="happiness++, butterness -= 5">Play with Da Dog</button>
         <button class="buttering">Leave (Map)</button>
     </div>
 </body>
+
 </html>
