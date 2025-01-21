@@ -81,6 +81,16 @@
         document.getElementById("happinessBox").innerHTML = "Happiness: " + happiness;
         if (butterness <= 0 || happiness <= 0) {
             alert("YOU MONSTER! YOU LET BUTTERDOG DIE!");
+            let response = prompt("Do you want to try again? (YES/NO)");
+            if (response && response.toUpperCase() === "YES") {
+                butterness = 50;
+                happiness = 50;
+            } else if (response && response.toUpperCase() === "NO") {
+                alert("Goodbye!"); 
+                window.location.href = '/'; // Redirect to the index page
+            } else {
+                alert("Invalid response. Goodbye!");
+            }
         }
     };
 </script>
@@ -91,7 +101,7 @@
     <div id="happinessBox"></div>
     <div class="button-container">
         <button class="buttering" onclick="butterness++">Butter Dat DoG!</button>
-        <button class="buttering" onclick="happiness++, butterness -= 2">Play with Da Dog</button>
+        <button class="buttering" onclick="happiness++, butterness -= 1">Play with Da Dog</button>
         <button class="buttering">Leave (Map)</button>
     </div>
 </body>
