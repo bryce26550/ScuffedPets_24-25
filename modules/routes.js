@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3');
-const AUTH_URL = "http://172.16.3.100:420/oauth";
-const THIS_URL = "http://172.16.3.235:3000/formbar-login";
+const AUTH_URL = "http://formbar.yorktechapps.com/oauth";
+const THIS_URL = "http://formbar.yorktechapps.com/formbar-login";
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto'); // Import the crypto module
 const db = new sqlite3.Database('data/database.db', (err) => {

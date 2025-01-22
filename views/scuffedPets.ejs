@@ -2,70 +2,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your pet, ButterDog!</title>
+    <style>
+        body {
+            background-color: green;
+        }
+
+        #butternessBox {
+            font-size: 30px;
+            color: yellow;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #happinessBox {
+            font-size: 30px;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttering {
+            border-radius: 15px;
+            font-size: 50px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+
+        .butterDog {
+            display: block;
+            height: 65%;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .map-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 15px;
+            font-size: 20px;
+            padding: 10px 20px;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border-radius: 15px;
+            font-size: 20px;
+            padding: 10px 20px;
+        }
+    </style>
 </head>
-<style>
-    body {
-        background-color: green;
-    }
-
-    #butternessBox {
-        font-size: 30px;
-        color: yellow;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    #happinessBox {
-        font-size: 30px;
-        color: white;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .buttering {
-        border-radius: 15px;
-        font-size: 50px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 20px;
-    }
-
-    .butterDog {
-        display: block;
-        height: 65%;
-        width: 35%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .button-container {
-        position: absolute;
-        bottom: 20px;
-        width: 100%;
-        text-align: center;
-    }
-
-    .button-container .buttering {
-        margin: 10px;
-    }
-</style>
 <script>
     let butterness = 50;
     let happiness = 50;
-    setInterval(unButter, 5000);
+    let alertShown = false; // Flag to track if alert has been shown
+
+    let unButterInterval = setInterval(unButter, 5000);
     function unButter() {
         if (butterness > 0) {
             butterness -= 1;
         }
     };
-    setInterval(unHappy, 2000);
+
+    let unHappyInterval = setInterval(unHappy, 2000);
     function unHappy() {
         if (happiness > 0) {
             happiness -= 1;
         }
     };
-    setInterval(checkStatus, 1);
+
+    let checkStatusInterval = setInterval(checkStatus, 1); // Check status every second
     function checkStatus() {
         if (butterness <= 0) {
             butterness = 0;
@@ -79,20 +90,36 @@
         }
         document.getElementById("butternessBox").innerHTML = "Butterness: " + butterness;
         document.getElementById("happinessBox").innerHTML = "Happiness: " + happiness;
-        if (butterness <= 0 || happiness <= 0) {
+        if ((butterness <= 0 || happiness <= 0) && !alertShown) {
+            clearInterval(unButterInterval); // Stop unButter interval
+            clearInterval(unHappyInterval); // Stop unHappy interval
+            clearInterval(checkStatusInterval); // Stop checkStatus interval
+            document.querySelector(".butterDog").src = "img/deadDog.jpeg"; // Change image source
             alert("YOU MONSTER! YOU LET BUTTERDOG DIE!");
-            let response = prompt("Do you want to try again? (YES/NO)");
-            if (response && response.toUpperCase() === "YES") {
-                butterness = 50;
-                happiness = 50;
-            } else if (response && response.toUpperCase() === "NO") {
-                alert("Goodbye!"); 
-                window.location.href = '/'; // Redirect to the index page
-            } else {
-                alert("Invalid response. Goodbye!");
-            }
+            alertShown = true; // Set the flag to true after showing the alert
+            // let response = prompt("Do you want to try again? (YES/NO)");
+            // if (response && response.toUpperCase() === "YES") {
+            //     butterness = 50;
+            //     happiness = 50;
+            //     document.querySelector(".butterDog").src = "img/butterDog.jpeg"; // Reset image source
+            //     alertShown = false; // Reset the flag
+            //     // Restart intervals
+            //     unButterInterval = setInterval(unButter, 5000);
+            //     unHappyInterval = setInterval(unHappy, 2000);
+            //     checkStatusInterval = setInterval(checkStatus, 1000);
+            // } else if (response && response.toUpperCase() === "NO") {
+            //     alert("Goodbye!"); 
+            //     window.location.href = '/'; // Redirect to the index page
+            // } else {
+            //     alert("Invalid response. Goodbye!");
+            // }
         }
     };
+
+    function logout() {
+        // Implement logout functionality here
+        window.location.href = '/logout'; // Redirect to the logout page
+    }
 </script>
 
 <body>
@@ -102,8 +129,9 @@
     <div class="button-container">
         <button class="buttering" onclick="butterness++">Butter Dat DoG!</button>
         <button class="buttering" onclick="happiness++, butterness -= 1">Play with Da Dog</button>
-        <button class="buttering">Leave (Map)</button>
     </div>
+    <button class="map-button">Map</button>
+    <button class="logout-button" onclick="logout()">Logout</button>
 </body>
 
 </html>
