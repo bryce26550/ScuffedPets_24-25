@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select ButterDog Image</title>
+    <style>
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+        .image-container img {
+            cursor: pointer;
+            width: 200px;
+            height: auto;
+        }
+        img {
+            border: 5px, solid, black;
+            border-radius: 90px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select ButterDog Image</h1>
+    <form id="imageForm" action="/selectImage" method="POST">
+        <input type="hidden" id="selectedImage" name="selectedImage">
+    </form>
+    <div class="image-container">
+        <img src="/img/butterDog.jpeg" alt="Butter Dog 1" onclick="selectImage('/img/butterDog.jpeg')">
+        <img src="/img/butterDog2.jpeg" alt="Butter Dog 2" onclick="selectImage('/img/butterDog2.jpeg')">
+        <img src="/img/butterDog3.jpeg" alt="Butter Dog 3" onclick="selectImage('/img/butterDog3.jpeg')">
+    </div>
+    <script>
+        function selectImage(imagePath) {
+            document.getElementById('selectedImage').value = imagePath;
+            document.getElementById('imageForm').submit();
+        }
+    </script>
+</body>
+</html>
