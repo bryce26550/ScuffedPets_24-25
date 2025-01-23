@@ -24,6 +24,11 @@ function routes(app) {
         res.render('login.ejs');
     });
 
+    app.get('/map', (req, res) => {
+        res.render('map.ejs');
+    });
+
+
     app.post('/login', (req, res) => {
         if (req.body.user && req.body.pass) {
             db.get('SELECT * FROM users WHERE username=?;', req.body.user, (err, row) => {
