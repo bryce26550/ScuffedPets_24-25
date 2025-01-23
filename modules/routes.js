@@ -137,6 +137,21 @@ function routes(app) {
             res.render('scuffedPets.ejs');
         });
     });
+
+    app.get('/paintPet', (req, res) => {
+        isAuthenticated(req, res, () => {
+            res.render('paintPet.ejs');
+        });
+    });
+
+    app.post('/selectImage', (req, res) => {
+        if (req.body.selectedImage) {
+            req.session.selectedImage = req.body.selectedImage;
+            res.redirect('/scuffedPets');
+        } else {
+            res.send("No image selected");
+        }
+    });
 }
 
 module.exports = { routes };

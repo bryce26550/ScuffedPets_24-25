@@ -121,15 +121,21 @@
         // Implement logout functionality here
         window.location.href = '/logout'; // Redirect to the logout page
     }
+
+    function changeDatDog(event) {
+        const selectedImage = document.getElementById('imageSelect').value;
+        document.querySelector(".butterDog").src = selectedImage;
+    }
 </script>
 
 <body>
-    <img src="img/butterDog.jpeg" alt="Butter Dog" class="butterDog">
+    <img src="<%= session.selectedImage || 'img/butterDog.jpeg' %>" alt="Butter Dog" class="butterDog">
     <div id="butternessBox"></div>
     <div id="happinessBox"></div>
     <div class="button-container">
         <button class="buttering" onclick="butterness++">Butter Dat DoG!</button>
-        <button class="buttering" onclick="happiness++, butterness -= 1">Play with Da Dog</button>
+        <button class="buttering" onclick="happiness++, butterness -= 1">Play with Dat Dog</button>
+        <button class="buttering" onclick="window.location.href='/paintPet'">Change Dat Dog</button>
     </div>
     <button class="map-button" onclick="window.location.href='/map'">Map</button>
     <button class="logout-button" onclick="logout()">Logout</button>
