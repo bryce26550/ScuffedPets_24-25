@@ -5,63 +5,95 @@
     <style>
         body {
             background-color: green;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
 
-        #butternessBox {
+        #butternessBox{
             font-size: 30px;
             color: yellow;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
-        #happinessBox {
+        #happinessBox{
             font-size: 30px;
             color: white;
             text-align: center;
+            margin-top: 10px;
+        }
+
+        #butterCount {
+            font-size: 30px;
+            color: gold;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin-top: 20px;
         }
 
         .buttering {
             border-radius: 15px;
-            font-size: 50px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 20px;
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
         }
 
         .butterDog {
             display: block;
-            height: 65%;
-            bottom: 20px;
+            height: 300px;
             width: auto;
-            margin-left: auto;
-            margin-right: auto;
+            margin-top: 20px;
+            transition: transform 1s ease-in-out;
+        }
+
+        .rotate {
+            animation: rotate 1s linear;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .map-button, .logout-button {
+            position: absolute;
+            border-radius: 15px;
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
         }
 
         .map-button {
-            position: absolute;
             top: 10px;
             right: 10px;
-            border-radius: 15px;
-            font-size: 20px;
-            padding: 10px 20px;
         }
 
         .logout-button {
-            position: absolute;
             top: 10px;
             left: 10px;
-            border-radius: 15px;
-            font-size: 20px;
-            padding: 10px 20px;
         }
     </style>
 </head>
 <script>
-    let butterness = 50;
-    let happiness = 50;
+    var butterness = 50;
+    var happiness = 50;
     let alertShown = false; // Flag to track if alert has been shown
+    let butter = "<%= butter %>"; // Get the butter count from the session
 
     let unButterInterval = setInterval(unButter, 5000);
     function unButter() {
@@ -116,27 +148,41 @@
             butter--;
             butterness += 10;
             document.getElementById("butterCount").innerText = "Butter: " + butter;
+            // Optionally, you can send an AJAX request to update the butter count in the session
+            fetch('/updateButter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ butter: butter })
+            });
         } else {
             alert("You have no butter left!");
         }
     }
+
+    function playWithDog() {
+        happiness++;
+        butterness -= 1;
+        const butterDog = document.querySelector(".butterDog");
+        butterDog.classList.add("rotate");
+        setTimeout(() => {
+            butterDog.classList.remove("rotate");
+        }, 1000);
+    }
 </script>
-<!-- move to line 132 inside the scr when ready to countinue working on the issue: session.selectedImage ||  -->
 
 <body>
-    <img src="<%= selectedImage %>" alt="Butter Dog" class="butterDog">
-    <div id="butternessBox"></div>
-    <div id="happinessBox"></div>
-    <div class="button-container">
-        <button class="buttering" onclick="butterness ++">Butter Dat DoG!</button>
-        <button class="buttering" onclick="happiness++, butterness -= 1">Play with Dat Dog</button>
-        <button class="buttering" onclick="window.location.href='/paintPet'">Change Dat Dog</button>
-        <button class="buttering" onclick="useButter()">Use Butter</button>
-        <div id="butterCount">Butter: <%= butter %>
-        </div>
-    </div>
-    <button class="map-button" onclick="window.location.href='/map'">Map</button>
     <button class="logout-button" onclick="logout()">Logout</button>
+    <button class="map-button" onclick="window.location.href='/map'">Map</button>
+    <img src="<%= selectedImage %>" alt="Butter Dog" class="butterDog">
+    <div id="butterCount">Butter: <%= butter %></div>
+    <div id="butternessBox">Butterness: </div>
+    <div id="happinessBox">Happiness: </div>
+    <div class="button-container">
+        <button class="buttering" onclick="useButter()">Butter Dat DoG!</button>
+        <button class="buttering" onclick="playWithDog()">Play with Dat Dog</button>
+        <button class="buttering" onclick="window.location.href='/paintPet'">Change Dat Dog</button>
+    </div>
 </body>
-
 </html>
