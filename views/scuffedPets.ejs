@@ -98,22 +98,6 @@
             document.querySelector(".butterDog").src = "img/deadDog.jpeg"; // Change image source
             alert("YOU MONSTER! YOU LET BUTTERDOG DIE!");
             alertShown = true; // Set the flag to true after showing the alert
-            // let response = prompt("Do you want to try again? (YES/NO)");
-            // if (response && response.toUpperCase() === "YES") {
-            //     butterness = 50;
-            //     happiness = 50;
-            //     document.querySelector(".butterDog").src = "img/butterDog.jpeg"; // Reset image source
-            //     alertShown = false; // Reset the flag
-            //     // Restart intervals
-            //     unButterInterval = setInterval(unButter, 5000);
-            //     unHappyInterval = setInterval(unHappy, 2000);
-            //     checkStatusInterval = setInterval(checkStatus, 1000);
-            // } else if (response && response.toUpperCase() === "NO") {
-            //     alert("Goodbye!"); 
-            //     window.location.href = '/'; // Redirect to the index page
-            // } else {
-            //     alert("Invalid response. Goodbye!");
-            // }
         }
     };
 
@@ -126,16 +110,30 @@
         const selectedImage = document.getElementById('imageSelect').value;
         document.querySelector(".butterDog").src = selectedImage;
     }
+
+    function useButter() {
+        if (butter > 0) {
+            butter--;
+            butterness += 10;
+            document.getElementById("butterCount").innerText = "Butter: " + butter;
+        } else {
+            alert("You have no butter left!");
+        }
+    }
 </script>
+<!-- move to line 132 inside the scr when ready to countinue working on the issue: session.selectedImage ||  -->
 
 <body>
-    <img src="<%= session.selectedImage || 'img/butterDog.jpeg' %>" alt="Butter Dog" class="butterDog">
+    <img src="<%= selectedImage %>" alt="Butter Dog" class="butterDog">
     <div id="butternessBox"></div>
     <div id="happinessBox"></div>
     <div class="button-container">
-        <button class="buttering" onclick="butterness++">Butter Dat DoG!</button>
+        <button class="buttering" onclick="butterness ++">Butter Dat DoG!</button>
         <button class="buttering" onclick="happiness++, butterness -= 1">Play with Dat Dog</button>
         <button class="buttering" onclick="window.location.href='/paintPet'">Change Dat Dog</button>
+        <button class="buttering" onclick="useButter()">Use Butter</button>
+        <div id="butterCount">Butter: <%= butter %>
+        </div>
     </div>
     <button class="map-button" onclick="window.location.href='/map'">Map</button>
     <button class="logout-button" onclick="logout()">Logout</button>

@@ -134,13 +134,19 @@ function routes(app) {
 
     app.get('/scuffedPets', (req, res) => {
         isAuthenticated(req, res, () => {
-            res.render('scuffedPets.ejs');
+            res.render('scuffedPets.ejs', { butter: req.session.butter || 0, selectedImage: req.session.selectedImage || 'img/butterDog.jpeg' });
         });
     });
 
     app.get('/paintPet', (req, res) => {
         isAuthenticated(req, res, () => {
             res.render('paintPet.ejs');
+        });
+    });
+
+    app.get('/shop', (req, res) => {
+        isAuthenticated(req, res, () => {
+            res.render('shop.ejs');
         });
     });
 
@@ -151,6 +157,14 @@ function routes(app) {
         } else {
             res.send("No image selected");
         }
+    });
+
+    app.post('/buyButter', (req, res) => {
+        if (!req.session.butter) {
+            req.session.butter = 0;
+        }
+        req.session.butter += 1;
+        res.redirect('/shop');
     });
 }
 
