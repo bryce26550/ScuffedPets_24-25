@@ -19,6 +19,9 @@ function routes(app) {
     app.get('/', (req, res) => {
         res.render('index.ejs');
     });
+    app.get('/minigame', (req, res) => {
+        res.render('minigame.ejs');
+    });
 
     app.get('/login', (req, res) => {
         res.render('login.ejs');
