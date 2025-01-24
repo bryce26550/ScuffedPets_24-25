@@ -166,6 +166,15 @@ function routes(app) {
         req.session.butter += 1;
         res.redirect('/shop');
     });
+
+    app.post('/updateButter', (req, res) => {
+        if (req.body.butter !== undefined) {
+            req.session.butter = req.body.butter;
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(400);
+        }
+    });
 }
 
 module.exports = { routes };

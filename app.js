@@ -22,6 +22,7 @@ const sessionMiddleware = session({
 });
 
 app.use(bodyParser.urlencoded({ extended: true })); // Use body-parser middleware
+app.use(bodyParser.json()); // Add this line to parse JSON requests
 app.use(sessionMiddleware);
 io.use((socket, next) => { sessionMiddleware(socket.request, {}, next); });
 
