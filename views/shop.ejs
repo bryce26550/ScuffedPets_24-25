@@ -4,12 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dat Shop</title>
+    <style>
+        body {
+            background-image: url("/img/Shelf.jpg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            position: relative; /* Set body to relative position */
+        }
+
+        #items {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute; /* Position items absolutely */
+            top: 58%; /* Adjust this value to align with the shelf */
+            left: 37%; /* Adjust this value to align with the shelf */
+            transform: translate(-50%, -50%); /* Center the items */
+        }
+
+        img {
+            cursor: pointer;
+            width: 150px;
+            height: auto;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+
+        button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border-radius: 15px;
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <button onclick="window.location.href='/map'">Leave</button>
     <div id="items">
         <form action="/buyButter" method="POST">
-            <img src="/img/BUTTEr.jpg" alt="butter" onclick="this.closest('form').submit()"></img>
+            <img src="/img/BUTTEr.jpg" alt="butter" onclick="this.closest('form').submit()">
         </form>
     </div>
 </body>
