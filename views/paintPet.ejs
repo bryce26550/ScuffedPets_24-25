@@ -19,18 +19,29 @@
             border: 5px, solid, black;
             border-radius: 90px;
         }
+
+        H2 {
+            margin-left: 55px;
+        }
     </style>
 </head>
 <body>
-    <h1>Select ButterDog Image</h1>
+    <h1>Select Your ButterPet</h1>
     <form id="imageForm" action="/selectImage" method="POST">
         <input type="hidden" id="selectedImage" name="selectedImage">
     </form>
+    <h2>ButterDogs: </H2>
     <div class="image-container">
         <img src="/img/butterDog.jpeg" alt="Butter Dog 1" onclick="selectImage('/img/butterDog.jpeg')">
         <img src="/img/butterDog2.jpeg" alt="Butter Dog 2" onclick="selectImage('/img/butterDog2.jpeg')">
         <img src="/img/butterDog3.jpeg" alt="Butter Dog 3" onclick="selectImage('/img/butterDog3.jpeg')">
     </div>
+    <h2>ButterCats: </H2>
+        <div class="image-container">
+            <img src="/img/butterCat.jpeg" alt="Butter Cat 1" onclick="selectImage('/img/butterCat.jpeg')">
+            <img src="/img/butterCat2.jpeg" alt="Butter Cat 2" onclick="selectImage('/img/butterCat2.jpeg')">
+            <img src="/img/butterCat3.jpeg" alt="Butter Cat 3" onclick="selectImage('/img/butterCat3.jpeg')">
+        </div>
     <script>
         function selectImage(imagePath) {
             document.getElementById('selectedImage').value = imagePath;
